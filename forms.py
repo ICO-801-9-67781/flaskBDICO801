@@ -4,8 +4,8 @@ from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,Subm
 
 class UserForm(Form):
     nombre=StringField("Nombre")
-    apaterno=StringField("Apellido Paterno")
-    amaterno=StringField("Apellido Materno")
+    apaterno=StringField("APaterno")
+    amaterno=StringField("AMaterno")
     edad=IntegerField("Edad")
-    correo=EmailField("Email")
+    correo=EmailField("Correo")
     matricula=IntegerField("Matricula")

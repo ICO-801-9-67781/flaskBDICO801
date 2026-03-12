@@ -1,17 +1,22 @@
-import flask
-from forms import UserForm
+from flask import Flask, render_template, request, redirect, url_for
+from flask import flash
 from flask_wtf.csrf import CSRFProtect
-from models import db,alumnos
 from config import DevelopmentConfig
+import forms
 
-app=flask.Flask("__main__")
+from models import db, Alumnos
+
+app=Flask("__main__")
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 csrf=CSRFProtect(app)
 
-@app.route("/")
-def main():
-    return flask.render_template("index.html")
+@app.route("/", methods=["GET", "POST"])
+@app.route("/index")
+def index():
+    create_alumno = forms.UserForm(request.form)
+    alumno = Alumnos.query.all()
+    return render_template("index.html", form=create_alumno, alumno=alumno)
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
@@ -23,7 +28,7 @@ def usuario():
     email=''
     usuarios_clas=UserForm(flask.request.form)
     if flask.request.method=='POST':
-        mat=usuarios_clas.matricula.data
+        mat=usuarios_clas.id.data
         nom=usuarios_clas.nombre.data
         apa=usuarios_clas.apaterno.data
         ama=usuarios_clas.amaterno.data
