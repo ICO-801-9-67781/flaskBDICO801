@@ -4,7 +4,8 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 import forms
 
-from models import db, Alumnos
+from models import db, Alumnos, Maestros
+from forms import UserForm, MaestroForm 
 
 app=Flask("__main__")
 app.config.from_object(DevelopmentConfig)
@@ -16,7 +17,8 @@ csrf=CSRFProtect(app)
 def index():
     create_alumno = forms.UserForm(request.form)
     alumno = Alumnos.query.all()
-    return render_template("index.html", form=create_alumno, alumno=alumno)
+    maestros = Maestros.query.all()
+    return render_template("index.html", form=create_alumno, alumno=alumno, maestros=maestros)
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
@@ -37,6 +39,12 @@ def usuario():
     
     return flask.render_template('usuarios.html',form=usuarios_clas,mat=mat,
                            nom=nom,apa=apa,ama=ama,edad=edad,email=email)
+
+@app.route("/maestros")
+def lista_maestros():
+    form_maestro = MaestroForm(request.form)
+    maestros = Maestros.query.all()
+    return render_template("maestros.html", form=form_maestro, maestros=maestros)
     
 if __name__=="__main__":
     csrf.init_app(app)

@@ -1,6 +1,4 @@
-from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,SubmitField, validators
-
-
+from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,SubmitField
 
 class UserForm(Form):
     nombre=StringField("Nombre")
@@ -9,3 +7,10 @@ class UserForm(Form):
     edad=IntegerField("Edad")
     correo=EmailField("Correo")
     matricula=IntegerField("Matricula")
+
+class MaestroForm(Form):
+    matricula = IntegerField("Matricula")
+    nombre = StringField("Nombre")
+    apellidos = StringField("Apellidos")
+    especialidad = StringField("Especialidad")
+    email = EmailField("Email")
