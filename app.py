@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate
 from config import DevelopmentConfig
 import forms
 
@@ -10,6 +11,7 @@ from forms import UserForm, MaestroForm
 app=Flask("__main__")
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+migrate=Migrate(app, db) # Inicializa Flask-Migrate con la aplicación y la base de datos
 csrf=CSRFProtect(app)
 
 @app.route("/", methods=["GET", "POST"])
