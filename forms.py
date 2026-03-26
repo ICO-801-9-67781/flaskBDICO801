@@ -1,15 +1,15 @@
-from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,SubmitField
+from wtforms import Form, StringField, IntegerField, EmailField, PasswordField, SubmitField
 
 class UserForm(Form):
-    nombre=StringField("Nombre")
-    apaterno=StringField("APaterno")
-    amaterno=StringField("AMaterno")
-    edad=IntegerField("Edad")
-    correo=EmailField("Correo")
-    matricula=IntegerField("Matricula")
+    id = IntegerField("ID")  # Este es el nombre que Jinja2 buscará
+    nombre = StringField("Nombre")
+    apaterno = StringField("APaterno")
+    amaterno = StringField("AMaterno")
+    edad = IntegerField("Edad")
+    correo = EmailField("Correo")
 
 class MaestroForm(Form):
-    matricula = IntegerField("Matricula")
+    id = IntegerField("ID")
     nombre = StringField("Nombre")
     apellidos = StringField("Apellidos")
     especialidad = StringField("Especialidad")

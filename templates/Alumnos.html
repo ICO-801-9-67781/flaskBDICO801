@@ -3,8 +3,10 @@ macros %}
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.matricula, class="bg-neutral-secondary-medium
+      {{macros.campoNuevo(form.id, class="bg-neutral-secondary-medium
       border border-default-medium text-heading text-sm rounded-base
       focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs
       placeholder:text-body")}}
