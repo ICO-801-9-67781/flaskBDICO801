@@ -1,0 +1,61 @@
+{% extends "layout.html" %} {% block container %} {% import "macros.html" as
+macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <h2 class="max-w-md mx-auto text-2xl font-bold mb-6 text-gray-800">
+    Registrar Maestro
+  </h2>
+
+  <form
+    action="{{ url_for('registrar_maestro') }}"
+    method="POST"
+    class="max-w-md mx-auto"
+  >
+    {# Única línea necesaria para la validación de seguridad #} {{
+    form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    {% set estilo_campo = "block p-2.5 w-full text-sm text-gray-900 bg-white
+    rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500
+    shadow-sm" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.id, class=estilo_campo, placeholder="Matrícula")
+      }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.nombre, class=estilo_campo,
+      placeholder="Nombre") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.apellidos, class=estilo_campo,
+      placeholder="Apellidos") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.especialidad, class=estilo_campo,
+      placeholder="Especialidad") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.email, class=estilo_campo, placeholder="Correo
+      Electrónico") }}
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input
+        type="submit"
+        value="Guardar Maestro"
+        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+      />
+      <a
+        href="{{ url_for('index') }}"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

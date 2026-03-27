@@ -2,77 +2,79 @@
 macros %}
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <div class="max-w-md mx-auto mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Registrar Nuevo Alumno</h2>
+    <p class="text-gray-600">
+      Complete los siguientes campos para dar de alta al estudiante.
+    </p>
+  </div>
+
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    {# Definimos una clase estándar para todos los inputs: fondo blanco, borde
+    gris y texto oscuro #} {% set input_class = "block p-2.5 w-full text-sm
+    text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500
+    focus:border-blue-500 shadow-sm placeholder:text-gray-400" %}
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.id, class="bg-neutral-secondary-medium
-      border border-default-medium text-heading text-sm rounded-base
-      focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.id, class=input_class, placeholder="Ingrese
+      ID")}}
     </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.nombre, class="bg-neutral-secondary-medium border
-      border-default-medium text-heading text-sm rounded-base focus:ring-brand
-      focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.nombre, class=input_class,
+      placeholder="Nombre(s)")}}
     </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.apaterno,class="bg-neutral-secondary-medium
-      border border-default-medium text-heading text-sm rounded-base
-      focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.apaterno, class=input_class,
+      placeholder="Apellido Paterno")}}
     </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.amaterno,class="bg-neutral-secondary-medium
-      border border-default-medium text-heading text-sm rounded-base
-      focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.amaterno, class=input_class,
+      placeholder="Apellido Materno")}}
     </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.edad,class="bg-neutral-secondary-medium border
-      border-default-medium text-heading text-sm rounded-base focus:ring-brand
-      focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.edad, class=input_class, placeholder="Edad")}}
     </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.correo, class="bg-neutral-secondary-medium border
-      border-default-medium text-heading text-sm rounded-base focus:ring-brand
-      focus:border-brand block w-full px-3 py-2.5 shadow-xs
-      placeholder:text-body")}}
+      {{macros.campoNuevo(form.correo, class=input_class,
+      placeholder="ejemplo@correo.com")}}
     </div>
-    <div class="grid md:grid-cols-2 md:gap-6">
-      <input
+
+    <div class="grid md:grid-cols-2 md:gap-6 mt-8">
+      <button
         type="submit"
-        id="btn1"
-        name="btn1"
-        value="Registrar"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      />
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center transition-colors"
+      >
+        Registrar Alumno
+      </button>
+
       <a
-        href="index"
-        class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
+        href="{{ url_for('index') }}"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center flex items-center justify-center gap-2 transition-colors"
       >
         <svg
-          class="w-5 h-5"
+          class="w-4 h-4"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M5 13l4 4L19 7"
+            d="M6 18L18 6M6 6l12 12"
           ></path>
         </svg>
         Cancelar
       </a>
     </div>
   </form>
-  <div class="relative z-0 w-full mb-5 group">
-    Resultado: {{mat}},{{nom}},{{apa}} {{ama}},{{edad}},{{email}}
-  </div>
 </div>
-{%endblock%}
+{% endblock %}
