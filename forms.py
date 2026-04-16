@@ -1,6 +1,7 @@
-from wtforms import Form, StringField, IntegerField, EmailField, PasswordField, SubmitField
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, EmailField, PasswordField, SubmitField
 
-class UserForm(Form):
+class UserForm(FlaskForm):
     id = IntegerField("ID")  # Este es el nombre que Jinja2 buscará
     nombre = StringField("Nombre")
     apaterno = StringField("APaterno")
@@ -8,7 +9,7 @@ class UserForm(Form):
     edad = IntegerField("Edad")
     correo = EmailField("Correo")
 
-class MaestroForm(Form):
+class MaestroForm(FlaskForm):
     id = IntegerField("ID")
     nombre = StringField("Nombre")
     apellidos = StringField("Apellidos")

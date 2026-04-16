@@ -11,7 +11,6 @@ macros %}
 
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
     {{ form.csrf_token }}
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
     {# Definimos una clase estándar para todos los inputs: fondo blanco, borde
     gris y texto oscuro #} {% set input_class = "block p-2.5 w-full text-sm

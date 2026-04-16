@@ -1,154 +1,30 @@
-{% extends "layout.html" %} {% block container %}
-
-<div class="py-32 px-4 flex flex-col gap-16">
-  <div class="relative overflow-x-auto sm:rounded-lg">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold dark:text-white">Registro de Alumnos</h2>
-      <a
-        href="{{ url_for('alumnos') }}"
-        class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-          ></path>
-        </svg>
-        Nuevo Alumno
-      </a>
-    </div>
-
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
-        <tr>
-          <th scope="col" class="px-6 py-3">Nombre</th>
-          <th scope="col" class="px-6 py-3">Apaterno</th>
-          <th scope="col" class="px-6 py-3">Amaterno</th>
-          <th scope="col" class="px-6 py-3">Edad</th>
-          <th scope="col" class="px-6 py-3">Correo</th>
-          <th scope="col" class="px-6 py-3 text-center">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for alum in alumno %}
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-        >
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            {{ alum.nombre }}
-          </td>
-          <td class="px-6 py-4">{{ alum.apaterno }}</td>
-          <td class="px-6 py-4">{{ alum.amaterno }}</td>
-          <td class="px-6 py-4">{{ alum.edad }}</td>
-          <td class="px-6 py-4">{{ alum.correo }}</td>
-          <td class="px-6 py-4 text-center">
-            <div class="flex justify-center gap-2">
-              <a
-                href="/modificar?id={{ alum.id }}"
-                class="bg-orange-500 text-white px-2 py-1 rounded text-xs"
-                >Editar</a
-              >
-              <a
-                href="/detalles?id={{ alum.id }}"
-                class="bg-purple-500 text-white px-2 py-1 rounded text-xs"
-                >Detalles</a
-              >
-              <a
-                href="/eliminar?id={{ alum.id }}"
-                class="bg-red-500 text-white px-2 py-1 rounded text-xs"
-                >Eliminar</a
-              >
+{% extends "layout.html" %}
+{% block container %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-12">Sistema de Gestión Escolar</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="p-6 flex flex-col items-center">
+                <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-full mb-4">
+                    <svg class="w-12 h-12 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Módulo de Alumnos</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-center mb-6">Administración de expedientes, inscripciones y datos personales de estudiantes.</p>
+                <a href="/Alumnos" class="w-full text-center bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5">Acceder</a>
             </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </div>
 
-  <hr class="border-gray-200 dark:border-gray-700" />
-
-  <div class="relative overflow-x-auto sm:rounded-lg">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold dark:text-white">Registro de Maestros</h2>
-      <a
-        href="{{ url_for('registrar_maestro') }}"
-        class="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-700 text-sm"
-      >
-        <svg
-          class="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          ></path>
-        </svg>
-        Nuevo Maestro
-      </a>
-    </div>
-
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
-        <tr>
-          <th scope="col" class="px-6 py-3">Nombre</th>
-          <th scope="col" class="px-6 py-3">Apellidos</th>
-          <th scope="col" class="px-6 py-3">Especialidad</th>
-          <th scope="col" class="px-6 py-3">Email</th>
-          <th scope="col" class="px-6 py-3 text-center">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for teacher in maestros %}
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-        >
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            {{ teacher.nombre }}
-          </td>
-          <td class="px-6 py-4">{{ teacher.apellidos }}</td>
-          <td class="px-6 py-4">{{ teacher.especialidad }}</td>
-          <td class="px-6 py-4">{{ teacher.email }}</td>
-          <td class="px-6 py-4 text-center">
-            <div class="flex justify-center gap-2">
-              <a
-                href="{{ url_for('editar_maestro', id=teacher.matricula) }}"
-                class="bg-orange-500 text-white px-2 py-1 rounded text-xs"
-                >Editar</a
-              >
-              <a
-                href="/detalles_maestro?id={{ teacher.matricula }}"
-                class="bg-purple-500 text-white px-2 py-1 rounded text-xs"
-                >Detalles</a
-              >
-              <a
-                href="/eliminar_maestro?id={{ teacher.matricula }}"
-                class="bg-red-500 text-white px-2 py-1 rounded text-xs"
-                >Eliminar</a
-              >
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="p-6 flex flex-col items-center">
+                <div class="p-3 bg-green-100 dark:bg-green-900 rounded-full mb-4">
+                    <svg class="w-12 h-12 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Módulo de Maestros</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-center mb-6">Control de plantilla docente, especialidades y asignación de materias.</p>
+                <a href="{{ url_for('maestros.consultar_maestros') }}" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-5 py-2.5">Acceder</a>
             </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </div>
+    </div>
 </div>
-
 {% endblock %}

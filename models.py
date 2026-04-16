@@ -6,7 +6,7 @@ db = SQLAlchemy()
 
 class Alumnos(db.Model):
     __tablename__ = "alumnos"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(250), nullable=False)
     apaterno = db.Column(db.String(50), nullable=False)
     amaterno = db.Column(db.String(150), nullable=False)
@@ -28,7 +28,7 @@ class Alumnos(db.Model):
 
 class Maestros(db.Model):
     __tablename__ = "maestros"
-    matricula = db.Column(db.Integer, primary_key=True)
+    matricula = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(50))
     apellidos = db.Column(db.String(50))
     especialidad = db.Column(db.String(50))
@@ -36,8 +36,7 @@ class Maestros(db.Model):
 
     cursos = db.relationship("Curso", back_populates="maestro")
 
-    def __init__(self, matricula, nombre, apellidos, especialidad, email):
-        self.matricula = matricula
+    def __init__(self, nombre, apellidos, especialidad, email):
         self.nombre = nombre
         self.apellidos = apellidos
         self.especialidad = especialidad

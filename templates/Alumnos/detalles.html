@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block container %}
-<div class="group py-32 relative overflow-x-auto sm:rounded-lg">
+<div class="flex items-center justify-center min-h-screen py-32">
   <div
-    class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs"
+    class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs text-center"
   >
     <button
       id="dropdownButton"
@@ -66,15 +66,16 @@
         alt="Bonnie image"
       />
       <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">
-        Nombre: {{nombre}} {{apaterno}}
+        Nombre: {{ alumno.nombre }} {{ alumno.apaterno }} {{ alumno.amaterno }}
       </h5>
       <h3 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">
-        Correo: {{correo}}
+        Correo: {{ alumno.correo }}
       </h3>
+      <p class="mb-0.5 text-sm text-gray-600">Edad: {{ alumno.edad }}</p>
 
-      <div class="flex mt-4 md:mt-6 gap-4">
+      <div class="flex mt-4 md:mt-6 gap-4 justify-center">
         <a
-          href="index"
+          href="{{ url_for('alumnos.consultar_alumnos') }}"
           class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
         >
           <svg

@@ -8,7 +8,6 @@ macros %}
 
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
     {{ form.csrf_token }}
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
     {# Clase para edición: Fondo blanco, texto oscuro y bordes definidos #} {%
     set edit_class = "block p-2.5 w-full text-sm text-gray-900 bg-white
