@@ -3,22 +3,20 @@ from config import DevelopmentConfig
 from models import db
 from maestros.routes import maestros_bp
 from alumnos.routes import alumnos_bp
+from cursos.routes import cursos_bp
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 
-# Inicializar DB
 db.init_app(app)
 
-# REGISTRO DE BLUEPRINTS
-# Todas las rutas de maestros ahora empezarán con /maestros (ej: /maestros/registrar)
+# BLUEPRINTS
 app.register_blueprint(maestros_bp, url_prefix='/maestros')
-# Todas las rutas de alumnos ahora empezarán con /Alumnos (ej: /Alumnos/registrar)
 app.register_blueprint(alumnos_bp, url_prefix='/Alumnos')
+app.register_blueprint(cursos_bp, url_prefix='/cursos')
 
 @app.route('/')
 def index():
-    # Esta es tu pantalla de bienvenida con las dos cards
     return render_template('index.html')
 
 if __name__ == '__main__':

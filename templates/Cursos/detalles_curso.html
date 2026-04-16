@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="flex items-center justify-center min-h-screen py-32">
+  <div class="relative bg-white max-w-xs w-full p-6 border border-gray-200 rounded-lg shadow-lg text-center">
+    <h5 class="mb-3 text-xl font-semibold text-gray-900">{{ curso.nombre }}</h5>
+    <p class="mb-2 text-sm text-gray-600"><strong>Docente:</strong> {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}</p>
+    <p class="mb-2 text-sm text-gray-600"><strong>Descripción:</strong></p>
+    <p class="mb-4 text-gray-700">{{ curso.descripcion or 'Sin descripción' }}</p>
+    <p class="mb-4 text-sm text-gray-600"><strong>Alumnos inscritos:</strong> {{ curso.alumnos|length }}</p>
+
+    <div class="flex mt-4 gap-4 justify-center">
+      <a href="{{ url_for('cursos.consultar_cursos') }}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Regresar</a>
+      <a href="{{ url_for('cursos.editar_curso', id=curso.id) }}" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Editar</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

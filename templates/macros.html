@@ -1,4 +1,4 @@
-{%macro campoNuevo(field)%}<!--Similar a una funcion-->
+{%macro campoNuevo(field)%}
 <td>{{field.label}}</td>
 <dd>{{field(**kwargs) | safe}}</dd>
 {%if field.errors%}

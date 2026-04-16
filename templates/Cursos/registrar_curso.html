@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <div class="max-w-md mx-auto mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Registrar Nuevo Curso</h2>
+    <p class="text-gray-600">Complete los datos del curso y seleccione el docente responsable.</p>
+  </div>
+
+  <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    {{ form.hidden_tag() }}
+
+    {% set input_class = "block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-sm placeholder:text-gray-400" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      <label class="block text-sm font-medium text-gray-700 mb-2">ID</label>
+      {{ form.id(class=input_class, readonly=True, disabled=True, placeholder="Autogenerado") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.nombre, class=input_class, placeholder="Nombre del curso") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.descripcion, class=input_class, placeholder="Descripción del curso") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.maestro_id, class=input_class) }}
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6 mt-8">
+      <button type="submit" class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">Registrar Curso</button>
+      <a href="{{ url_for('cursos.consultar_cursos') }}" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
