@@ -21,6 +21,16 @@ def registrar_inscripcion():
         return redirect(url_for('index'))
 
     if form.validate_on_submit():
+        # Verificar si ya existe una inscripción para este alumno y curso
+        existing_inscripcion = Inscripcion.query.filter_by(
+            alumno_id=form.alumno_id.data,
+            curso_id=form.curso_id.data
+        ).first()
+        
+        if existing_inscripcion:
+            flash('El alumno ya está inscrito en este curso', 'danger')
+            return render_template('Inscripciones/registrar_inscripcion.html', form=form)
+        
         nueva_inscripcion = Inscripcion(
             alumno_id=form.alumno_id.data,
             curso_id=form.curso_id.data,
@@ -47,6 +57,17 @@ def editar_inscripcion(id):
     form.curso_id.choices = [(c.id, c.nombre) for c in cursos]
 
     if form.validate_on_submit():
+        # Verificar si ya existe otra inscripción con la nueva combinación (excluyendo la actual)
+        existing_inscripcion = Inscripcion.query.filter(
+            Inscripcion.alumno_id == form.alumno_id.data,
+            Inscripcion.curso_id == form.curso_id.data,
+            Inscripcion.id != id
+        ).first()
+        
+        if existing_inscripcion:
+            flash('El alumno ya está inscrito en este curso', 'danger')
+            return render_template('Inscripciones/editar_inscripcion.html', form=form, inscripcion=inscripcion)
+        
         inscripcion.alumno_id = form.alumno_id.data
         inscripcion.curso_id = form.curso_id.data
         db.session.commit()
