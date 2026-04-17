@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="min-h-screen bg-slate-50 px-4 py-8">
+  <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Cursos por Maestro</h1>
+    <p class="text-gray-600 mb-6">Selecciona un maestro para ver los cursos que imparte.</p>
+
+    <form method="POST" class="space-y-6">
+      <div>
+        <label for="maestro_id" class="block mb-2 text-sm font-medium text-gray-700">Profesor</label>
+        <select id="maestro_id" name="maestro_id" class="w-full rounded-2xl border border-gray-300 p-3 text-gray-900 focus:border-green-500 focus:ring-green-500">
+          <option value="">Selecciona un maestro</option>
+          {% for maestro in maestros %}
+          <option value="{{ maestro.matricula }}" {% if selected_maestro and maestro.matricula == selected_maestro.matricula %}selected{% endif %}>{{ maestro.nombre }} {{ maestro.apellidos }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 transition">Consultar</button>
+    </form>
+
+    {% if selected_maestro %}
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Cursos impartidos por {{ selected_maestro.nombre }} {{ selected_maestro.apellidos }}</h2>
+      {% if cursos %}
+      <div class="space-y-4">
+        {% for curso in cursos %}
+        <div class="rounded-2xl border border-gray-200 p-4 bg-slate-50">
+          <h3 class="text-lg font-semibold text-gray-800">{{ curso.nombre }}</h3>
+          <p class="text-gray-600">{{ curso.descripcion }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="rounded-2xl border border-yellow-300 bg-yellow-50 p-4 text-yellow-800">No se encontraron cursos para este maestro.</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

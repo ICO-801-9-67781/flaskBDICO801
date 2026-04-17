@@ -13,8 +13,31 @@
 
     <form action="" method="POST" class="mt-6">
       {{ form.hidden_tag() }}
+
+      {% if alumnos_inscritos %}
+      <div class="mb-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50 text-gray-700">
+        <p class="font-semibold">Este curso tiene {{ alumnos_inscritos|length }} alumno(s) inscrito(s).</p>
+        <ul class="list-disc list-inside mt-3 space-y-1">
+          {% for alumno in alumnos_inscritos %}
+          <li>{{ alumno.nombre }} {{ alumno.apaterno }} {{ alumno.amaterno }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-white">
+        <p class="font-medium text-gray-800 mb-3">Antes de eliminar el curso, puedes desinscribir a todos los alumnos registrados.</p>
+        <label class="flex items-start gap-3 p-4 border rounded-lg hover:border-blue-400">
+          <input type="radio" name="action" value="desinscribir" class="mt-1" checked required>
+          <div>
+            <div class="font-semibold">Desinscribir a todos y eliminar curso</div>
+            <p class="text-sm text-gray-600 mt-2">Se eliminarán todas las inscripciones y el curso será borrado de la base de datos.</p>
+          </div>
+        </label>
+      </div>
+      {% endif %}
+
       <div class="grid md:grid-cols-2 md:gap-6">
-        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">Eliminar Curso</button>
+        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">{% if alumnos_inscritos %}Desinscribir y Eliminar{% else %}Eliminar Curso{% endif %}</button>
         <a href="{{ url_for('cursos.consultar_cursos') }}" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 inline-flex items-center justify-center">Cancelar</a>
       </div>
     </form>

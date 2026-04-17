@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from . import cursos_bp
-from models import db, Curso, Maestros
+from models import db, Curso, Maestros, Inscripcion
 from forms import CursoForm
 
 @cursos_bp.route('/')
@@ -59,11 +59,25 @@ def eliminar_curso(id):
     form = CursoForm(obj=curso)
     maestros = Maestros.query.all()
     form.maestro_id.choices = [(m.matricula, f"{m.nombre} {m.apellidos}") for m in maestros]
+    alumnos_inscritos = curso.alumnos
 
     if request.method == 'POST':
-        db.session.delete(curso)
-        db.session.commit()
-        flash('Curso eliminado', 'danger')
-        return redirect(url_for('cursos.consultar_cursos'))
+        action = request.form.get('action')
+        if alumnos_inscritos and action != 'desinscribir':
+            flash('Debes desinscribir a los alumnos antes de eliminar este curso.', 'danger')
+            return render_template('Cursos/eliminar_curso.html', form=form, curso=curso, alumnos_inscritos=alumnos_inscritos)
 
-    return render_template('Cursos/eliminar_curso.html', form=form, curso=curso)
+        if alumnos_inscritos and action == 'desinscribir':
+            curso.alumnos = []
+            db.session.delete(curso)
+            db.session.commit()
+            flash('Curso eliminado y alumnos desinscritos.', 'success')
+            return redirect(url_for('cursos.consultar_cursos'))
+
+        if not alumnos_inscritos:
+            db.session.delete(curso)
+            db.session.commit()
+            flash('Curso eliminado', 'danger')
+            return redirect(url_for('cursos.consultar_cursos'))
+
+    return render_template('Cursos/eliminar_curso.html', form=form, curso=curso, alumnos_inscritos=alumnos_inscritos)

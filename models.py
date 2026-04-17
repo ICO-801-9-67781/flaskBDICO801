@@ -76,8 +76,8 @@ class Inscripcion(db.Model):
         db.UniqueConstraint("alumno_id", "curso_id", name="uq_alumno_curso"),
     )
 
-    alumno = db.relationship("Alumnos")
-    curso = db.relationship("Curso")
+    alumno = db.relationship("Alumnos", overlaps="cursos,alumnos")
+    curso = db.relationship("Curso", overlaps="alumnos,cursos")
 
     def __init__(self, alumno_id, curso_id):
         self.alumno_id = alumno_id

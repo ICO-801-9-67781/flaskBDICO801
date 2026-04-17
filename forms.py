@@ -21,3 +21,8 @@ class CursoForm(FlaskForm):
     nombre = StringField("Nombre")
     descripcion = TextAreaField("Descripción")
     maestro_id = SelectField("Maestro", coerce=int, choices=[])
+
+class InscripcionForm(FlaskForm):
+    id = IntegerField("ID")
+    alumno_id = SelectField("Alumno", coerce=int, choices=[])
+    curso_id = SelectField("Curso", coerce=int, choices=[])

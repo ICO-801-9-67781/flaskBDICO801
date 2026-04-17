@@ -47,9 +47,32 @@ def editar_maestro(id):
 def eliminar_maestro(id):
     maestro = Maestros.query.get_or_404(id)
     form = MaestroForm(obj=maestro)
+    otros_maestros = Maestros.query.filter(Maestros.matricula != id).all()
     if request.method == 'POST':
+        if maestro.cursos:
+            action = request.form.get('action')
+            if action == 'reassign':
+                if not otros_maestros:
+                    flash('No hay otro maestro disponible para reasignar los cursos.', 'danger')
+                    return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro, otros_maestros=otros_maestros)
+                nuevo_maestro_id = request.form.get('nuevo_maestro_id', type=int)
+                if not nuevo_maestro_id:
+                    flash('Seleccione un maestro válido para la reasignación.', 'danger')
+                    return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro, otros_maestros=otros_maestros)
+                nuevo_maestro = Maestros.query.get(nuevo_maestro_id)
+                if not nuevo_maestro or nuevo_maestro.matricula == maestro.matricula:
+                    flash('Seleccione un maestro válido para la reasignación.', 'danger')
+                    return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro, otros_maestros=otros_maestros)
+                for curso in list(maestro.cursos):
+                    curso.maestro = nuevo_maestro
+            elif action == 'delete_courses':
+                for curso in list(maestro.cursos):
+                    db.session.delete(curso)
+            else:
+                flash('Selecciona una opción válida antes de eliminar.', 'danger')
+                return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro, otros_maestros=otros_maestros)
         db.session.delete(maestro)
         db.session.commit()
         flash('Maestro eliminado', 'danger')
         return redirect(url_for('maestros.consultar_maestros'))
-    return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro)
+    return render_template('Maestros/eliminar_maestro.html', form=form, maestro=maestro, otros_maestros=otros_maestros)

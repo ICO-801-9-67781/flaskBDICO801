@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <div class="max-w-md mx-auto mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Eliminar Inscripción</h2>
+    <p class="text-gray-600">Confirme la eliminación de esta inscripción.</p>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 max-w-md mx-auto">
+    <p class="mb-4 text-gray-700"><strong>Alumno:</strong> {{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apaterno }} {{ inscripcion.alumno.amaterno }}</p>
+    <p class="mb-4 text-gray-700"><strong>Curso:</strong> {{ inscripcion.curso.nombre }}</p>
+    <p class="mb-4 text-gray-700"><strong>Fecha de inscripción:</strong> {{ inscripcion.fecha_inscripcion.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+    <form action="" method="POST" class="mt-6">
+      {{ form.hidden_tag() }}
+      <div class="grid md:grid-cols-2 md:gap-6">
+        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">Eliminar</button>
+        <a href="{{ url_for('inscripciones.consultar_inscripciones') }}" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 inline-flex items-center justify-center">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

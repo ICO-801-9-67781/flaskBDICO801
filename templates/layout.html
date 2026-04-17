@@ -17,7 +17,7 @@
       <div
         class="container flex flex-wrap items-center justify-between mx-auto"
       >
-        <a href="#" class="flex items-center">
+        <a href="{{ url_for('index') }}" class="flex items-center">
           <img
             src="{{url_for('static',filename='img/logobw.png')}}"
             class="rounded-2xl h-6 mr-3 sm:h-9"
@@ -29,12 +29,12 @@
           >
         </a>
         <div class="flex md:order-2">
-          <button
-            type="button"
+          <a
+            href="{{ url_for('index') }}"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Inicio
-          </button>
+          </a>
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
@@ -89,7 +89,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="{{ url_for('inscripciones.consultar_inscripciones') }}"
                 class="block py-2 pl-3 pr-4 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >Inscripciones</a
               >
@@ -100,44 +100,39 @@
     </nav>
 
     <div class="flex items-center justify-center min-h-scree">
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %}
-      <div
-        class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xl px-4"
-      >
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="fixed top-24 left-4 z-50 w-full max-w-sm px-4">
         {% for category, message in messages %}
-        <div
-          class="mb-2 rounded-lg border px-4 py-3 shadow-lg text-white {% if category == 'success' %}bg-green-500{% elif category == 'danger' %}bg-red-500{% else %}bg-blue-500{% endif %}"
-        >
+        <div class="mb-2 rounded-2xl border px-4 py-3 shadow-lg text-white {% if category == 'success' %}bg-green-500 border-green-600{% elif category == 'danger' %}bg-red-500 border-red-600{% else %}bg-blue-500 border-blue-600{% endif %}">
           {{ message }}
         </div>
         {% endfor %}
       </div>
-      {% endif %} {% endwith %} {% block container %} {% endblock %}
+      {% endif %}
+      {% endwith %}
+      {% block container %}
+      {% endblock %}
     </div>
 
-    <div
-      class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600"
-    >
+    <div class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
       <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
-        <button
+        <a
+          href="{{ url_for('index') }}"
           data-tooltip-target="tooltip-home"
-          type="button"
           class="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group"
         >
           <svg
-            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
-            <path
-              d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"
-            />
+            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
           </svg>
           <span class="sr-only">Home</span>
-        </button>
+        </a>
         <div
           id="tooltip-home"
           role="tooltip"
@@ -146,43 +141,40 @@
           Home
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
-        <button
-          data-tooltip-target="tooltip-wallet"
-          type="button"
+
+        <a
+          href="{{ url_for('consultas.cursos_por_alumno') }}"
+          data-tooltip-target="tooltip-alumno"
           class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
         >
           <svg
-            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
-            <path
-              d="M11.074 4 8.442.408A.95.95 0 0 0 7.014.254L2.926 4h8.148ZM9 13v-1a4 4 0 0 1 4-4h6V6a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2h-6a4 4 0 0 1-4-4Z"
-            />
-            <path
-              d="M19 10h-6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1Zm-4.5 3.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM12.62 4h2.78L12.539.41a1.086 1.086 0 1 0-1.7 1.352L12.62 4Z"
-            />
+            <path d="M10 4a2 2 0 110 4 2 2 0 010-4zm0 5a4 4 0 00-4 4v1h8v-1a4 4 0 00-4-4zm6-4a2 2 0 110 4 2 2 0 010-4zM4 11a2 2 0 110 4 2 2 0 010-4z" />
           </svg>
-          <span class="sr-only">Wallet</span>
-        </button>
+          <span class="sr-only">Cursos por Alumno</span>
+        </a>
         <div
-          id="tooltip-wallet"
+          id="tooltip-alumno"
           role="tooltip"
           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700"
         >
-          Wallet
+          Cursos por Alumno
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
+
         <div class="flex items-center justify-center">
           <button
-            data-tooltip-target="tooltip-new"
+            data-tooltip-target="tooltip-extra"
             type="button"
-            class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+            class="inline-flex items-center justify-center w-12 h-12 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
           >
             <svg
-              class="w-4 h-4 text-white"
+              class="w-6 h-6 text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -196,71 +188,65 @@
                 d="M9 1v16M1 9h16"
               />
             </svg>
-            <span class="sr-only">New item</span>
+            <span class="sr-only">Extra</span>
           </button>
         </div>
         <div
-          id="tooltip-new"
+          id="tooltip-extra"
           role="tooltip"
           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700"
         >
-          Create new item
+          Extra
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
-        <button
-          data-tooltip-target="tooltip-settings"
-          type="button"
+
+        <a
+          href="{{ url_for('consultas.cursos_por_maestro') }}"
+          data-tooltip-target="tooltip-maestro"
           class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
         >
           <svg
-            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 20 20"
           >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"
-            />
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4a4 4 0 00-4 4v1a4 4 0 008 0V8a4 4 0 00-4-4zm0 11c-4 0-6 2-6 2v1h12v-1s-2-2-6-2z" />
           </svg>
-          <span class="sr-only">Settings</span>
-        </button>
+          <span class="sr-only">Cursos por Maestro</span>
+        </a>
         <div
-          id="tooltip-settings"
+          id="tooltip-maestro"
           role="tooltip"
           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700"
         >
-          Settings
+          Cursos por Maestro
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
-        <button
-          data-tooltip-target="tooltip-profile"
-          type="button"
+
+        <a
+          href="{{ url_for('consultas.alumnos_por_curso') }}"
+          data-tooltip-target="tooltip-curso"
           class="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group"
         >
           <svg
-            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
-            <path
-              d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"
-            />
+            <path d="M4 4h12v12H4z" /><path d="M7 7h6v2H7V7zm0 4h6v2H7v-2z" fill="#fff" />
           </svg>
-          <span class="sr-only">Profile</span>
-        </button>
+          <span class="sr-only">Alumnos por Curso</span>
+        </a>
         <div
-          id="tooltip-profile"
+          id="tooltip-curso"
           role="tooltip"
           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700"
         >
-          Profile
+          Alumnos por Curso
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
       </div>

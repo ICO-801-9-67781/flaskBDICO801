@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="min-h-screen bg-slate-50 px-4 py-8">
+  <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Alumnos por Curso</h1>
+    <p class="text-gray-600 mb-6">Selecciona un curso para ver los alumnos inscritos.</p>
+
+    <form method="POST" class="space-y-6">
+      <div>
+        <label for="curso_id" class="block mb-2 text-sm font-medium text-gray-700">Curso</label>
+        <select id="curso_id" name="curso_id" class="w-full rounded-2xl border border-gray-300 p-3 text-gray-900 focus:border-violet-500 focus:ring-violet-500">
+          <option value="">Selecciona un curso</option>
+          {% for curso in cursos %}
+          <option value="{{ curso.id }}" {% if selected_curso and curso.id == selected_curso.id %}selected{% endif %}>{{ curso.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-violet-600 text-white hover:bg-violet-700 transition">Consultar</button>
+    </form>
+
+    {% if selected_curso %}
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Alumnos inscritos en {{ selected_curso.nombre }}</h2>
+      {% if alumnos %}
+      <div class="space-y-4">
+        {% for alumno in alumnos %}
+        <div class="rounded-2xl border border-gray-200 p-4 bg-slate-50">
+          <h3 class="text-lg font-semibold text-gray-800">{{ alumno.nombre }} {{ alumno.apaterno }} {{ alumno.amaterno }}</h3>
+          <p class="text-gray-600">Edad: {{ alumno.edad }} | Correo: {{ alumno.correo }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="rounded-2xl border border-yellow-300 bg-yellow-50 p-4 text-yellow-800">No hay alumnos inscritos en este curso.</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

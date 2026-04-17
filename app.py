@@ -4,6 +4,8 @@ from models import db
 from maestros.routes import maestros_bp
 from alumnos.routes import alumnos_bp
 from cursos.routes import cursos_bp
+from inscripciones.routes import inscripciones_bp
+from consultas.routes import consultas_bp
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
@@ -14,6 +16,8 @@ db.init_app(app)
 app.register_blueprint(maestros_bp, url_prefix='/maestros')
 app.register_blueprint(alumnos_bp, url_prefix='/Alumnos')
 app.register_blueprint(cursos_bp, url_prefix='/cursos')
+app.register_blueprint(inscripciones_bp, url_prefix='/inscripciones')
+app.register_blueprint(consultas_bp, url_prefix='/consultas')
 
 @app.route('/')
 def index():

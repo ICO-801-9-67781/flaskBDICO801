@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="flex items-center justify-center min-h-screen py-32">
+  <div class="relative bg-white max-w-xs w-full p-6 border border-gray-200 rounded-lg shadow-lg text-center">
+    <h5 class="mb-3 text-xl font-semibold text-gray-900">Inscripción {{ inscripcion.id }}</h5>
+    <p class="mb-2 text-sm text-gray-600"><strong>Alumno:</strong> {{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apaterno }} {{ inscripcion.alumno.amaterno }}</p>
+    <p class="mb-2 text-sm text-gray-600"><strong>Curso:</strong> {{ inscripcion.curso.nombre }}</p>
+    <p class="mb-2 text-sm text-gray-600"><strong>Docente:</strong> {{ inscripcion.curso.maestro.nombre }} {{ inscripcion.curso.maestro.apellidos }}</p>
+    <p class="mb-4 text-gray-700"><strong>Fecha:</strong> {{ inscripcion.fecha_inscripcion.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+    <div class="flex mt-4 gap-4 justify-center">
+      <a href="{{ url_for('inscripciones.consultar_inscripciones') }}" class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">Regresar</a>
+      <a href="{{ url_for('inscripciones.editar_inscripcion', id=inscripcion.id) }}" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Editar</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

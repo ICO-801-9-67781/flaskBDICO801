@@ -36,6 +36,46 @@
       {{macros.campoNuevo(form.email, class=input_class, readonly=True)}}
     </div>
 
+    {% if maestro.cursos %}
+    <div class="mb-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50 text-gray-700">
+      <p class="font-semibold">Este maestro tiene {{ maestro.cursos|length }} curso(s) asignado(s).</p>
+      <ul class="list-disc list-inside mt-3 space-y-1">
+        {% for curso in maestro.cursos %}
+        <li>{{ curso.nombre }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="mb-5 p-4 border border-gray-200 rounded-lg bg-white">
+      <p class="font-medium text-gray-800 mb-3">¿Qué deseas hacer con los cursos de este maestro?</p>
+      <div class="space-y-4">
+        <label class="flex items-start gap-3 p-4 border rounded-lg hover:border-blue-400">
+          <input type="radio" name="action" value="reassign" class="mt-1" {% if otros_maestros %}checked{% endif %} {% if not otros_maestros %}disabled{% endif %} required>
+          <div>
+            <div class="font-semibold">Reasignar cursos a otro maestro</div>
+            {% if otros_maestros %}
+            <select name="nuevo_maestro_id" class="mt-2 block w-full rounded-lg border border-gray-300 bg-white p-2 text-sm text-gray-900" required>
+              {% for otro in otros_maestros %}
+              <option value="{{ otro.matricula }}">{{ otro.nombre }} {{ otro.apellidos }}</option>
+              {% endfor %}
+            </select>
+            {% else %}
+            <p class="mt-2 text-sm text-red-600">No hay otro maestro disponible para reasignar.</p>
+            {% endif %}
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-4 border rounded-lg hover:border-red-400">
+          <input type="radio" name="action" value="delete_courses" class="mt-1" {% if not otros_maestros %}checked{% endif %} required>
+          <div>
+            <div class="font-semibold">Eliminar también los cursos asignados</div>
+            <p class="text-sm text-gray-600 mt-2">Todos los cursos de este maestro se borrarán junto con su registro.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+    {% endif %}
+
     <div class="grid md:grid-cols-2 md:gap-6">
       <button
         type="submit"
